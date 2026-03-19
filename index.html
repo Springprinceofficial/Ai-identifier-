@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Identifier — Verify Uploads</title>
+    <meta
+      name="description"
+      content="Upload files safely. Get an AI-likeness estimate and a clear explanation."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="bg__grid" aria-hidden="true"></div>
+      <div class="bg__glow bg__glow--a" aria-hidden="true"></div>
+      <div class="bg__glow bg__glow--b" aria-hidden="true"></div>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="AI Identifier home">
+        <span class="brand__mark" aria-hidden="true">AI</span>
+        <span class="brand__name">Identifier</span>
+      </a>
+      <nav class="topbar__nav" aria-label="Primary navigation">
+        <a class="navlink" href="#how">How it works</a>
+        <a class="navlink" href="#safety">Safety</a>
+        <a class="navlink" href="./auth.html" data-cta="login">Login</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero__left">
+          <div class="badge">
+            <span class="badge__dot" aria-hidden="true"></span>
+            Human-friendly AI detection for uploads
+          </div>
+          <h1 class="hero__title">
+            Don’t guess. <span class="gradient">Verify</span> whether a file looks AI-made.
+          </h1>
+          <p class="hero__subtitle">
+            Upload videos, images, or documents. We estimate AI-likeness and explain why—so
+            people won’t get confused by AI-like visuals and artifacts.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="./auth.html" id="letsFindBtn">Let’s Find</a>
+            <a class="btn btn--ghost" href="#how">See how it works</a>
+          </div>
+
+          <div class="hero__trust">
+            <div class="trustcard">
+              <div class="trustcard__icon" aria-hidden="true">🔒</div>
+              <div class="trustcard__body">
+                <div class="trustcard__title">Local-first demo</div>
+                <div class="trustcard__text">Scans are stored in your browser only.</div>
+              </div>
+            </div>
+            <div class="trustcard">
+              <div class="trustcard__icon" aria-hidden="true">🧾</div>
+              <div class="trustcard__body">
+                <div class="trustcard__title">Clear reasons</div>
+                <div class="trustcard__text">We show signals that affected the score.</div>
+              </div>
+            </div>
+            <div class="trustcard">
+              <div class="trustcard__icon" aria-hidden="true">⚡</div>
+              <div class="trustcard__body">
+                <div class="trustcard__title">Fast results</div>
+                <div class="trustcard__text">Runs immediately after upload.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__right" aria-hidden="true">
+          <div class="orb orb--a"></div>
+          <div class="orb orb--b"></div>
+          <div class="orb orb--c"></div>
+
+          <div class="device">
+            <div class="device__top">
+              <div class="device__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="device__title">AI-likeness report</div>
+            </div>
+            <div class="device__body">
+              <div class="fakeupload">
+                <div class="fakeupload__thumb"></div>
+                <div class="fakeupload__meta">
+                  <div class="skeleton w-70"></div>
+                  <div class="skeleton w-45"></div>
+                </div>
+              </div>
+              <div class="meter">
+                <div class="meter__row">
+                  <span class="meter__label">AI-likeness</span>
+                  <span class="meter__value">72%</span>
+                </div>
+                <div class="meter__bar">
+                  <div class="meter__fill" style="width: 72%"></div>
+                </div>
+              </div>
+              <div class="chips">
+                <span class="chip">Repetitive texture</span>
+                <span class="chip">Synthetic edges</span>
+                <span class="chip">Metadata mismatch</span>
+              </div>
+              <div class="callout">
+                <div class="callout__title">Why?</div>
+                <div class="callout__text">
+                  Detected multiple signals consistent with generative content. Review
+                  details in the dashboard after signing in.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="section__head">
+          <h2 class="section__title">How it works</h2>
+          <p class="section__subtitle">
+            Simple flow: sign in → upload → get a score + reasons → manage scan history.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step__num">1</div>
+            <div class="step__title">Sign in</div>
+            <div class="step__text">Choose Gmail, Mobile, or GitHub (demo UI).</div>
+          </div>
+          <div class="step">
+            <div class="step__num">2</div>
+            <div class="step__title">Upload any file</div>
+            <div class="step__text">Videos, images, and documents are accepted.</div>
+          </div>
+          <div class="step">
+            <div class="step__num">3</div>
+            <div class="step__title">Get details</div>
+            <div class="step__text">See AI-likeness percentage and signal explanations.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="safety">
+        <div class="section__head">
+          <h2 class="section__title">Safety & privacy</h2>
+          <p class="section__subtitle">
+            This build is a frontend demo. Your files are processed in-browser and not
+            uploaded anywhere by this UI.
+          </p>
+        </div>
+        <div class="panel">
+          <ul class="list">
+            <li><strong>Local storage only:</strong> scan history stays in your browser.</li>
+            <li><strong>No auto-sharing:</strong> there is no public link generation.</li>
+            <li><strong>Clear limits:</strong> AI detection is probabilistic, not proof.</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__left">© <span id="year"></span> AI Identifier</div>
+        <div class="footer__right">
+          <a class="navlink" href="./auth.html">Let’s Find</a>
+          <a class="navlink" href="./dashboard.html">Dashboard</a>
+        </div>
+      </footer>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

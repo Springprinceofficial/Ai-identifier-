@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Identifier — Dashboard</title>
+    <meta name="description" content="Upload and analyze files. Manage scan history." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="bg__grid" aria-hidden="true"></div>
+      <div class="bg__glow bg__glow--a" aria-hidden="true"></div>
+      <div class="bg__glow bg__glow--b" aria-hidden="true"></div>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="AI Identifier home">
+        <span class="brand__mark" aria-hidden="true">AI</span>
+        <span class="brand__name">Identifier</span>
+      </a>
+      <nav class="topbar__nav" aria-label="Primary navigation">
+        <a class="navlink" href="./index.html">Home</a>
+        <a class="navlink" href="./auth.html" id="authLink">Login</a>
+        <button class="btn btn--small btn--ghost" id="logoutBtn" type="button">
+          Logout
+        </button>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="dash">
+        <div class="dash__head">
+          <div>
+            <h1 class="dash__title">Dashboard</h1>
+            <p class="dash__subtitle">
+              Upload files (any format). We’ll estimate AI-likeness and show reasons.
+            </p>
+          </div>
+          <div class="userpill" id="userPill" aria-live="polite"></div>
+        </div>
+
+        <div class="grid2">
+          <section class="card">
+            <div class="card__head">
+              <div class="card__title">Upload & Analyze</div>
+              <div class="small muted">Accepted: video / image / documents / any file</div>
+            </div>
+            <div class="card__body">
+              <div class="uploader" id="uploader">
+                <input id="fileInput" type="file" class="uploader__input" />
+                <div class="uploader__drop">
+                  <div class="uploader__icon" aria-hidden="true">⬆</div>
+                  <div class="uploader__text">
+                    <div class="uploader__title">Drop a file here</div>
+                    <div class="uploader__sub">
+                      or <span class="uploader__link">browse</span> to select
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preview" id="preview" hidden>
+                <div class="preview__left" id="previewMedia"></div>
+                <div class="preview__right">
+                  <div class="kv">
+                    <div class="kv__k">File</div>
+                    <div class="kv__v" id="fileName"></div>
+                  </div>
+                  <div class="kv">
+                    <div class="kv__k">Type</div>
+                    <div class="kv__v" id="fileType"></div>
+                  </div>
+                  <div class="kv">
+                    <div class="kv__k">Size</div>
+                    <div class="kv__v" id="fileSize"></div>
+                  </div>
+                  <div class="row gap">
+                    <button class="btn btn--primary" type="button" id="analyzeBtn">
+                      Analyze
+                    </button>
+                    <button class="btn btn--ghost" type="button" id="clearBtn">
+                      Clear
+                    </button>
+                  </div>
+                  <div class="small muted">
+                    Tip: analysis is a best-effort demo; in production you’d use server-side ML.
+                  </div>
+                </div>
+              </div>
+
+              <div class="result" id="result" hidden>
+                <div class="result__top">
+                  <div>
+                    <div class="result__title" id="resultTitle"></div>
+                    <div class="small muted" id="resultSubtitle"></div>
+                  </div>
+                  <div class="pill" id="resultPill"></div>
+                </div>
+
+                <div class="meter">
+                  <div class="meter__row">
+                    <span class="meter__label">AI-likeness</span>
+                    <span class="meter__value" id="scoreText"></span>
+                  </div>
+                  <div class="meter__bar">
+                    <div class="meter__fill" id="scoreFill"></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="panel__title">Reasons (signals)</div>
+                  <ul class="list" id="reasons"></ul>
+                </div>
+
+                <div class="row gap">
+                  <button class="btn btn--primary" type="button" id="saveScanBtn">
+                    Save to history
+                  </button>
+                  <button class="btn btn--ghost" type="button" id="downloadReportBtn">
+                    Download report (JSON)
+                  </button>
+                </div>
+              </div>
+
+              <div class="toast" id="dashToast" role="status" aria-live="polite"></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__head">
+              <div class="card__title">Scan History (CRUD)</div>
+              <div class="row gap">
+                <button class="btn btn--small btn--ghost" type="button" id="clearAllBtn">
+                  Clear all
+                </button>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="tablewrap">
+                <table class="table" aria-label="Scan history">
+                  <thead>
+                    <tr>
+                      <th>When</th>
+                      <th>File</th>
+                      <th>Type</th>
+                      <th>AI%</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historyTbody"></tbody>
+                </table>
+              </div>
+
+              <div class="empty" id="emptyHistory" hidden>
+                No scans yet. Upload a file and analyze it.
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="modal" id="detailModal">
+      <form method="dialog" class="modal__card">
+        <div class="modal__head">
+          <div class="modal__title">Scan details</div>
+          <button class="iconbtn" value="cancel" aria-label="Close" type="submit">✕</button>
+        </div>
+        <div class="modal__body">
+          <div class="grid2 grid2--modal">
+            <div>
+              <div class="panel">
+                <div class="panel__title">Summary</div>
+                <div class="kv">
+                  <div class="kv__k">File</div>
+                  <div class="kv__v" id="mFile"></div>
+                </div>
+                <div class="kv">
+                  <div class="kv__k">Type</div>
+                  <div class="kv__v" id="mType"></div>
+                </div>
+                <div class="kv">
+                  <div class="kv__k">AI-likeness</div>
+                  <div class="kv__v" id="mScore"></div>
+                </div>
+                <div class="kv">
+                  <div class="kv__k">Created</div>
+                  <div class="kv__v" id="mWhen"></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel__title">Reasons</div>
+                <ul class="list" id="mReasons"></ul>
+              </div>
+            </div>
+
+            <div>
+              <div class="panel">
+                <div class="panel__title">Edit record</div>
+                <div class="field">
+                  <label class="label" for="mLabel">Label</label>
+                  <input id="mLabel" class="input" type="text" placeholder="e.g. Client proof" />
+                </div>
+                <div class="field">
+                  <label class="label" for="mNotes">Notes</label>
+                  <textarea
+                    id="mNotes"
+                    class="input input--ta"
+                    placeholder="Why you scanned this file…"
+                  ></textarea>
+                </div>
+                <div class="row gap">
+                  <button class="btn btn--primary" id="mSaveBtn" type="button">Save</button>
+                  <button class="btn btn--ghost" id="mDeleteBtn" type="button">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Identifier — Login / Sign up</title>
+    <meta name="description" content="Login or sign up to scan uploads." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg">
+      <div class="bg__grid" aria-hidden="true"></div>
+      <div class="bg__glow bg__glow--a" aria-hidden="true"></div>
+      <div class="bg__glow bg__glow--b" aria-hidden="true"></div>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="AI Identifier home">
+        <span class="brand__mark" aria-hidden="true">AI</span>
+        <span class="brand__name">Identifier</span>
+      </a>
+      <nav class="topbar__nav" aria-label="Primary navigation">
+        <a class="navlink" href="./index.html#how">How it works</a>
+        <a class="navlink" href="./index.html#safety">Safety</a>
+        <a class="navlink" href="./dashboard.html">Dashboard</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="auth">
+        <div class="auth__left">
+          <h1 class="auth__title">
+            Sign in to <span class="gradient">scan</span> your uploads
+          </h1>
+          <p class="auth__subtitle">
+            Use Gmail, Mobile number, or GitHub. This demo stores a session in your browser.
+          </p>
+
+          <div class="auth__providers" role="group" aria-label="Provider sign in buttons">
+            <button class="btn btn--provider" data-provider="google" type="button">
+              <span class="providerIcon" aria-hidden="true">G</span>
+              Continue with Gmail
+            </button>
+            <button class="btn btn--provider" data-provider="github" type="button">
+              <span class="providerIcon providerIcon--gh" aria-hidden="true">⌂</span>
+              Continue with GitHub
+            </button>
+            <button class="btn btn--provider" data-provider="phone" type="button">
+              <span class="providerIcon providerIcon--ph" aria-hidden="true">☎</span>
+              Continue with Mobile
+            </button>
+          </div>
+
+          <div class="auth__note panel">
+            <div class="small">
+              <strong>Anti-spam:</strong> Sign up blocks known temporary/disposable email
+              domains. (Not perfect; add server-side checks in production.)
+            </div>
+          </div>
+        </div>
+
+        <div class="auth__right">
+          <div class="card">
+            <div class="tabs" role="tablist" aria-label="Auth mode">
+              <button class="tab is-active" data-tab="login" type="button" role="tab">
+                Login
+              </button>
+              <button class="tab" data-tab="signup" type="button" role="tab">
+                Sign up
+              </button>
+            </div>
+
+            <div class="card__body">
+              <form id="loginForm" class="form is-active" autocomplete="on" novalidate>
+                <div class="field">
+                  <label class="label" for="loginEmail">Email</label>
+                  <input
+                    id="loginEmail"
+                    name="email"
+                    class="input"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label class="label" for="loginPassword">Password</label>
+                  <input
+                    id="loginPassword"
+                    name="password"
+                    class="input"
+                    type="password"
+                    placeholder="••••••••"
+                    minlength="6"
+                    required
+                  />
+                </div>
+                <button class="btn btn--primary w-100" type="submit">Login</button>
+                <div class="hint">
+                  New here?
+                  <button class="linklike" type="button" data-switch="signup">
+                    Create an account
+                  </button>
+                </div>
+              </form>
+
+              <form id="signupForm" class="form" autocomplete="on" novalidate>
+                <div class="field">
+                  <label class="label" for="signupName">Name</label>
+                  <input
+                    id="signupName"
+                    name="name"
+                    class="input"
+                    type="text"
+                    placeholder="Your name"
+                    minlength="2"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label class="label" for="signupEmail">Email</label>
+                  <input
+                    id="signupEmail"
+                    name="email"
+                    class="input"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                  />
+                  <div class="field__help small" id="emailHelp">
+                    We block many temporary email domains.
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="signupPhone">Mobile number (optional)</label>
+                  <input
+                    id="signupPhone"
+                    name="phone"
+                    class="input"
+                    type="tel"
+                    placeholder="+91 98765 43210"
+                    inputmode="tel"
+                  />
+                </div>
+                <div class="field">
+                  <label class="label" for="signupPassword">Password</label>
+                  <input
+                    id="signupPassword"
+                    name="password"
+                    class="input"
+                    type="password"
+                    placeholder="At least 8 characters"
+                    minlength="8"
+                    required
+                  />
+                </div>
+                <button class="btn btn--primary w-100" type="submit">Create account</button>
+                <div class="hint">
+                  Already have an account?
+                  <button class="linklike" type="button" data-switch="login">Login</button>
+                </div>
+              </form>
+
+              <div class="toast" id="authToast" role="status" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="mini">
+            <div class="mini__item">
+              <div class="mini__k">After login</div>
+              <div class="mini__v">You’ll be redirected to the dashboard</div>
+            </div>
+            <div class="mini__item">
+              <div class="mini__k">CRUD</div>
+              <div class="mini__v">Create, view, edit, delete scan records</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
